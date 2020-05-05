@@ -1972,13 +1972,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addTask: function addTask() {
-      var task = {
-        id: 2,
-        name: this.name,
-        created_at: '30/04/2020'
+      var _this = this;
+
+      var params = {
+        name: this.name
       };
-      this.$emit('add', task);
       this.name = '';
+      axios.post('/tasks', params).then(function (response) {
+        var task = response.data;
+
+        _this.$emit('add', task);
+      });
     }
   }
 });
@@ -2026,14 +2030,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onClickDelete: function onClickDelete() {
-      this.$emit('delete');
+      var _this = this;
+
+      axios["delete"]("/tasks/".concat(this.task.id)).then(function () {
+        _this.$emit('delete');
+      });
     },
     onClickEdit: function onClickEdit() {
       this.editMode = true;
     },
     onClickUpdate: function onClickUpdate() {
-      this.editMode = false;
-      this.$emit('update', task);
+      var _this2 = this;
+
+      var params = {
+        name: this.task.name
+      };
+      axios.put("/tasks/".concat(this.task.id), params).then(function (response) {
+        _this2.editMode = false;
+        var task = response.data;
+
+        _this2.$emit('update', task);
+      });
     }
   }
 });
@@ -2068,20 +2085,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tasks: [{
-        id: 1,
-        name: 'Realizar app Laravel y Vue',
-        created_at: '25/04/2020'
-      }]
+      tasks: []
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    axios.get('/tasks').then(function (response) {
+      _this.tasks = response.data;
+    });
   },
   methods: {
     addTask: function addTask(task) {
-      var last_task = this.tasks[this.tasks.length - 1];
-      task.id = last_task.id + 1;
       this.tasks.push(task);
     },
     updateTask: function updateTask(index, task) {

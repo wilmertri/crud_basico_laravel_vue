@@ -30,13 +30,15 @@
         },
         methods: {
             addTask() {
-                let task = {
-                    id: 2,
-                    name: this.name,
-                    created_at: '30/04/2020'
+                const params = {
+                    name: this.name
                 }
-                this.$emit('add', task);
+                
                 this.name = '';
+                axios.post('/tasks', params).then((response) => {
+                    const task = response.data;
+                    this.$emit('add', task);
+                });
             }
         }
     }

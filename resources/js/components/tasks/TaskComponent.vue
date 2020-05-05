@@ -18,20 +18,16 @@
     export default {
         data() {
             return {
-                tasks: [{
-                    id: 1,
-                    name: 'Realizar app Laravel y Vue',
-                    created_at: '25/04/2020'
-                }]
+                tasks: []
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            axios.get('/tasks').then((response)=>{
+                this.tasks = response.data;
+            });
         },
         methods: {
             addTask(task){
-                let last_task = this.tasks[this.tasks.length - 1];
-                task.id = last_task.id + 1;
                 this.tasks.push(task);
             },
             updateTask(index, task){
