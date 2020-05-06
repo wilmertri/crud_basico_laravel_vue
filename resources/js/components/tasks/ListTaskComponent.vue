@@ -2,7 +2,7 @@
     <div class="col-md-10 mt-2">
         <div class="card card-primary">
             <div class="card-header bg-primary text-white">
-                Tarea creada hace {{ task.created_at }}
+                Tarea creada {{ task.created_at }}  Actualizada {{ task.updated_at }}  
             </div>
 
             <div class="card-body">

@@ -18,4 +18,9 @@ class Task extends Model
     {
         return Carbon::createFromDate($value)->diffForHumans();
     }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::createFromDate($value)->diffForHumans();
+    }
 }

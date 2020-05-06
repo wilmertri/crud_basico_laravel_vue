@@ -22,11 +22,14 @@
             }
         },
         mounted() {
-            axios.get('/tasks').then((response)=>{
-                this.tasks = response.data;
-            });
+            this.ListTask();
         },
         methods: {
+            ListTask(){
+                axios.get('/tasks').then((response)=>{
+                    this.tasks = response.data;
+                });
+            },
             addTask(task){
                 this.tasks.push(task);
             },
@@ -36,6 +39,13 @@
             deleteTask(index){
                 this.tasks.splice(index, 1);
             }
+            /** 
+            intervalFetchData(){
+                setInterval(()=>{
+                    this.ListTask();
+                }, 1000);
+            }
+            */
         }
     }
 </script>

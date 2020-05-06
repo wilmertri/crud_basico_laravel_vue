@@ -2089,13 +2089,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get('/tasks').then(function (response) {
-      _this.tasks = response.data;
-    });
+    this.ListTask();
   },
   methods: {
+    ListTask: function ListTask() {
+      var _this = this;
+
+      axios.get('/tasks').then(function (response) {
+        _this.tasks = response.data;
+      });
+    },
     addTask: function addTask(task) {
       this.tasks.push(task);
     },
@@ -2105,6 +2108,14 @@ __webpack_require__.r(__webpack_exports__);
     deleteTask: function deleteTask(index) {
       this.tasks.splice(index, 1);
     }
+    /** 
+    intervalFetchData(){
+        setInterval(()=>{
+            this.ListTask();
+        }, 1000);
+    }
+    */
+
   }
 });
 
@@ -37890,9 +37901,11 @@ var render = function() {
     _c("div", { staticClass: "card card-primary" }, [
       _c("div", { staticClass: "card-header bg-primary text-white" }, [
         _vm._v(
-          "\n            Tarea creada hace " +
+          "\n            Tarea creada " +
             _vm._s(_vm.task.created_at) +
-            "\n        "
+            "  Actualizada " +
+            _vm._s(_vm.task.updated_at) +
+            "  \n        "
         )
       ]),
       _vm._v(" "),
